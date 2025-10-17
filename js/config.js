@@ -85,6 +85,8 @@ function comprobar(e) {
     e.preventDefault();
 
     let errores = [];
+    const nombreTecnico = localStorage.getItem("nombreTecnico");
+    const codTecnico = localStorage.getItem("codTecnico");
 
     if (!importe.value || parseFloat(importe.value) <= 0) {
         errores.push("El importe es obligatorio y debe ser mayor que 0.");
@@ -94,9 +96,8 @@ function comprobar(e) {
         errores.push("La fecha es obligatoria.");
     }
 
-    const codTecnico = localStorage.getItem("codTecnico");
-    if (!codTecnico) {
-        errores.push("Debes iniciar sesión con un código de técnico.");
+    if (!codTecnico || !nombreTecnico) {
+        errores.push("Debes iniciar sesión con un código de técnico válido.");
     }
 
     if (!alimento.files || alimento.files.length === 0) {
@@ -108,25 +109,25 @@ function comprobar(e) {
     }
 
     if (errores.length > 0) {
-       Swal.fire({
-        icon: 'error',
-        title: '¡Ups! Se encontraron errores',
-        html: `
-            <p class="swal-texto">Por favor revisa los siguientes puntos antes de continuar:</p>
-            <ul class="swal-lista">
-            ${errores.map(err => `<li>${err}</li>`).join('')}
-            </ul>
-        `,
-        confirmButtonText: 'Entendido',
-        customClass: {
-            popup: 'swal-popup',
-            confirmButton: 'swal-btn-confirm'
-        }
+        Swal.fire({
+            icon: 'error',
+            title: '¡Ups! Se encontraron errores',
+            html: `
+                <p class="swal-texto">Por favor revisa los siguientes puntos antes de continuar:</p>
+                <ul class="swal-lista">
+                ${errores.map(err => `<li>${err}</li>`).join('')}
+                </ul>
+            `,
+            confirmButtonText: 'Entendido',
+            customClass: {
+                popup: 'swal-popup',
+                confirmButton: 'swal-btn-confirm'
+            }
         });
-        return; 
+        return;
     }
 
-     Swal.fire({
+    Swal.fire({
         title: '¿Quieres enviar estos datos?',
         text: 'Se guardarán en la base de datos.',
         icon: 'question',
@@ -154,7 +155,6 @@ function comprobar(e) {
         }
     });
 }
-
 
 function limpiar() {
     importe.value = "";

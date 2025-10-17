@@ -1,6 +1,6 @@
 function getAllTecnicos(codTecnico) {
     $.ajax({
-        url: "http://localhost/APITecnicos-NoSQL/tecnicos",
+        url: "https://unfurbished-elissa-dcollet.ngrok-free.dev/APITecnicos-NoSQL/tecnicos",
         type: "GET",
         dataType: "json",
         success: function(datos) {
@@ -49,7 +49,7 @@ function enviar(codTecnico, nombreTecnico, importe, delegacion, fecha, alimento,
     formData.append("imagenTicket", ticket);
 
     $.ajax({
-        url: "http://localhost/APITecnicos-NoSQL/gastos",
+        url: "https://unfurbished-elissa-dcollet.ngrok-free.dev/APITecnicos-NoSQL/gastos",
         type: "POST",
         data: formData,
         processData: false,
